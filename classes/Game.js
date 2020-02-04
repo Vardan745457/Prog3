@@ -1,18 +1,24 @@
-class Game {
+module.exports = class Game {
     constructor(obj = null) {
-        this.interval;
+        this._interval;
+        this.side = (obj && obj.side) ? obj.speed : 12;
         this.speed = (obj && obj.speed) ? obj.speed : 300;
         this.mX = (obj && obj.mX) ? obj.mX : 10,
         this.mY = (obj && obj.mY) ? obj.mY : 10,
-        this.grass = (obj && obj.grass) ? obj.grass : 30,
-        this.grasseater = (obj && obj.grasseater) ? obj.grasseater : 10,
-        this.predator = (obj && obj.predator) ? obj.predator : 10,
+        this.grass = (obj && this.CheckArgs(obj.grass) ) ? obj.grass : 30,
+        this.grasseater = (obj && this.CheckArgs(obj.grasseater) ) ? obj.grasseater : 10,
+        this.predator = (obj && this.CheckArgs(obj.predator)) ? obj.predator : 10,
 
-        this.MatrixSaize = this.mX * this.mY; 
+        this.matrix_saize = this.mX * this.mY;
+        // this.
+        this._canavas_size = {
+            x: this.mX * this.side,
+            y: this.mY * this.side,
+        }
     }
 
     Start(){
-        this.interval = setInterval(() => {
+        this._interval = setInterval(() => {
 
             this.Draw();
 
@@ -22,7 +28,7 @@ class Game {
 
 
             // if  (GrassArr.length == 0 && GrassEaterArr.length == 0 
-            //     || GrassArr.length >= game.MatrixSaize) {
+            //     || GrassArr.length >= game.matrix_saize) {
             
             //     game.Reset();
             // }
@@ -30,7 +36,7 @@ class Game {
        }, this.speed);
     }
     Stop() {
-        if (this.interval) clearInterval(this.interval); 
+        if (this._interval) clearInterval(this._interval); 
     }
     Restart() {
         this.Clear();
@@ -51,7 +57,7 @@ class Game {
     }
     Init() {
 
-        // if (this.MatrixSaize <= (this.grass + this.grasseater + this.predator))  {
+        // if (this.matrix_saize <= (this.grass + this.grasseater + this.predator))  {
         //     alert("Matrix is small");
         //     return null;
         // }
@@ -61,12 +67,12 @@ class Game {
             for (let j = 0; j < BusyCells.length; ++j) {
                 if (x == BusyCells[j].x && y == BusyCells[j].y) {
                     result = false;
+                    break;
                 }
             }
     
             return result;
         }
-    
         for(let i = 0 ; i < this.mY; ++i) {
             matrix[i] = [];
             for (let j = 0; j < this.mX; ++j) {
@@ -107,12 +113,6 @@ class Game {
                 --i;
             }
         }
-
-        CANVAS_SIZE = {
-            x: this.mX * side,
-            y: this.mY * side,
-        }
-
     }
     CreateBoard() {
         let body = document.getElementsByTagName("body")[0];
@@ -156,8 +156,14 @@ class Game {
                 if (matrix[i][j] == 2) fill("#ff0");
                 if (matrix[i][j] == 3) fill("#f00");
 
-                rect(j * side,i * side,side,side);
+                rect(j * this.side,i * this.side,this.side,this.side);
             }
         }
+    }
+    CheckArgs(arg){
+        if (arg != null) {
+            return (arg == 0) ? true : arg; 
+        }
+        return false;
     }
 }

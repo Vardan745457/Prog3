@@ -1,4 +1,6 @@
-class Grass extends Base {
+var Base = require("./Base");
+
+module.exports =  class Grass extends Base {
 
     constructor(x,y,e = null) {
         super(x,y);

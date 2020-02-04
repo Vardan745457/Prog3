@@ -1,8 +1,10 @@
-class GrassEater extends Base{
+var Base = require("./Base");
+
+module.exports = class GrassEater extends Base{
 
     constructor(x,y,e = null) {
         super(x,y);
-        this.e = e == null ? 5 : e;
+        this.e = (e == null) ? 5 : e;
     }
 
     mul(){
@@ -98,5 +100,3 @@ class GrassEater extends Base{
         }
     }
 }
-
-// super.move(arrNames ...)

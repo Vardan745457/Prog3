@@ -1,4 +1,6 @@
-class Predator extends Base {
+var Base = require("./Base");
+
+module.exports = class Predator extends Base {
     constructor(x,y,e = null) {
         super(x,y);
         this.e = (e == null) ? 10 : e; 
