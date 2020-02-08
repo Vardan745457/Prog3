@@ -1,6 +1,5 @@
 module.exports = class Game {
     constructor(obj = null) {
-        this._interval;
         this.side = (obj && obj.side) ? obj.speed : 12;
         this.speed = (obj && obj.speed) ? obj.speed : 300;
         this.mX = (obj && obj.mX) ? obj.mX : 10,
@@ -11,17 +10,13 @@ module.exports = class Game {
 
         this.matrix_saize = this.mX * this.mY;
         // this.
-        this._canavas_size = {
+        this.canavas_size = {
             x: this.mX * this.side,
             y: this.mY * this.side,
         }
     }
 
     Start(){
-        this._interval = setInterval(() => {
-
-            this.Draw();
-
             for (let i = 0; i < GrassArr.length ; ++i) GrassArr[i].mul();
             for (let i = 0; i < GrassEaterArr.length; ++i) GrassEaterArr[i].eat();
             for (let i = 0; i < PredatorArr.length; ++i) PredatorArr[i].eat();
@@ -32,11 +27,9 @@ module.exports = class Game {
             
             //     game.Reset();
             // }
-
-       }, this.speed);
     }
-    Stop() {
-        if (this._interval) clearInterval(this._interval); 
+    Stop(interval) {
+        if (interval) clearInterval(interval); 
     }
     Restart() {
         this.Clear();
@@ -61,6 +54,7 @@ module.exports = class Game {
         //     alert("Matrix is small");
         //     return null;
         // }
+        console.log("Init");
         let BusyCells = [];
         function CheckBC(x,y) {
             let result = true;
@@ -80,16 +74,16 @@ module.exports = class Game {
             }
         }    
         for (let i = 0; i < this.grass ; ++i) {
-            let x = Math.floor(random(0,matrix[0].length));
-            let y = Math.floor(random(0,matrix.length));
+            let x = Math.floor(random(matrix[0].length));
+            let y = Math.floor(random(matrix.length));
     
             matrix[y][x] = 1;
             GrassArr.push(new Grass(x,y));
             BusyCells.push({x: x,y: y});
         }
         for (let i = 0; i < this.predator ; ++i) {
-            let x = Math.floor(random(0,matrix[0].length));
-            let y = Math.floor(random(0,matrix.length));
+            let x = Math.floor(random(matrix[0].length));
+            let y = Math.floor(random(matrix.length));
             
     
             if (CheckBC(x,y)){
@@ -101,8 +95,8 @@ module.exports = class Game {
             }
         }
         for (let i = 0; i < this.grasseater ; ++i) {
-            let x = Math.floor(random(0,matrix[0].length));
-            let y = Math.floor(random(0,matrix.length));
+            let x = Math.floor(random(matrix[0].length));
+            let y = Math.floor(random(matrix.length));
             
     
             if (CheckBC(x,y)){

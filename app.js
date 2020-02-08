@@ -12,7 +12,7 @@ var GameOpts = {
     side: 15,
     mX: 30,
     mY: 30,
-    grass: 0,
+    grass: 100,
     predator: 30,
     grasseater: 40,
 }
@@ -29,19 +29,38 @@ GrassEaterArr = [];
 
 let game = new Game(GameOpts);
 
-// game.Init();
+game.Init();
 
-//Server
+//io
+io.on("connection", function(socket){
 
+    var GameData = {
+        "CanvasSize" : game.canavas_size,
+        "matrix" : matrix,
+    }
+
+    socket.emit("Init", JSON.stringify(GameData));
+})
+
+setInterval(() => {
+    game.Start();
+
+    io.sockets.emit("matrix", matrix);
+}, game.speed);  
+
+
+
+//Express
 app.use(express.static("./public"));
 
 app.get("/", function(req,res){
-    res.redirect("./index.html");
+    res.redirect("index.html");
 });
 
-app.listen(3000, function(){
+//Server
+server.listen(3000, function(){
     console.log("Ok");
 });
 
-//io
+
 

@@ -40,14 +40,12 @@ module.exports = class Predator extends Base {
             
             this.x = x;
             this.y = y;
-            console.log(this.e);
             if (this.e <= 0){
                 this.die();
             }
         }
     }
     eat(){
-        console.log(this.e);
         let newCell = random(this.ChoosCell(2));
 
         if (newCell) {

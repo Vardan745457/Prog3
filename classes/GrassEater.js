@@ -46,7 +46,6 @@ module.exports = class GrassEater extends Base{
                 this.die();
             }
         }
-        // console.log("Move","E",this.e);
     }
     eat(){
         let newCell = random(this.ChoosCell(1));
@@ -79,15 +78,12 @@ module.exports = class GrassEater extends Base{
             this.x = x;
             this.y = y;
 
-            // console.log("Grass Eater: eat","E", this.e);
             if (this.e >= 10) {
                 this.mul();
-                // console.log("Grass Eater: mul", "E", this.e);
             }
     
         }else {
             this.move();
-            // console.log("Grass Eater: move", "E", this.e);
         }
 
     }
