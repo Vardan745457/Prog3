@@ -1,6 +1,6 @@
 module.exports = class Game {
     constructor(obj = null) {
-        this.side = (obj && obj.side) ? obj.speed : 12;
+        this.side = (obj && obj.side) ? obj.side : 12;
         this.speed = (obj && obj.speed) ? obj.speed : 300;
         this.mX = (obj && obj.mX) ? obj.mX : 10,
         this.mY = (obj && obj.mY) ? obj.mY : 10,
@@ -46,7 +46,6 @@ module.exports = class Game {
     Reset() {
         this.Clear();
         this.Init();
-        this.Draw();
     }
     Init() {
 
@@ -72,7 +71,7 @@ module.exports = class Game {
             for (let j = 0; j < this.mX; ++j) {
                 matrix[i][j] = 0;
             }
-        }    
+        }
         for (let i = 0; i < this.grass ; ++i) {
             let x = Math.floor(random(matrix[0].length));
             let y = Math.floor(random(matrix.length));
@@ -81,6 +80,7 @@ module.exports = class Game {
             GrassArr.push(new Grass(x,y));
             BusyCells.push({x: x,y: y});
         }
+               
         for (let i = 0; i < this.predator ; ++i) {
             let x = Math.floor(random(matrix[0].length));
             let y = Math.floor(random(matrix.length));
@@ -94,6 +94,7 @@ module.exports = class Game {
                 --i;
             }
         }
+        
         for (let i = 0; i < this.grasseater ; ++i) {
             let x = Math.floor(random(matrix[0].length));
             let y = Math.floor(random(matrix.length));
@@ -139,20 +140,6 @@ module.exports = class Game {
         MainMenu.appendChild(StopButton);
         MainMenu.appendChild(RestartButton);
         MainMenu.appendChild(ResetButton);
-        
-        this.Draw();
-    }
-    Draw() {
-        for (let i = 0; i < matrix.length; ++i) {
-            for (let j = 0; j < matrix[i].length; ++j) {
-                if (matrix[i][j] == 0) fill("#fff");
-                if (matrix[i][j] == 1) fill("#0f0");
-                if (matrix[i][j] == 2) fill("#ff0");
-                if (matrix[i][j] == 3) fill("#f00");
-
-                rect(j * this.side,i * this.side,this.side,this.side);
-            }
-        }
     }
     CheckArgs(arg){
         if (arg != null) {

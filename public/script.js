@@ -1,21 +1,4 @@
-// let matrix = [],
-//     GrassArr = [],
-//     PredatorArr = [],
-//     GrassEaterArr = [];
 
-// let opt = {
-//     speed: 400,
-//     // mX: 5,
-//     // mY: 5,
-//     // grass: 10,
-//     // grasseater: 2,
-//     // predator: 1,
-// }
-
-// let side = 12;
-// let CANVAS_SIZE;
-
-// let game = new Game(opt);
 
 // function setup () {
 //     game.Init();
@@ -31,21 +14,26 @@
 //    game.Start();
 // }
 
-
-var socket = io();
-var GameData;
+let game = new Game();
+let socket = io();
+let GameData;
 
 function setup() {
-    socket.on("Init", function(data) { GameData = JSON.parse(data); });
+    // socket.on("connection",function(socket){
+
+    //     socket.on("Init", function(data) { GameData = JSON.parse(data); });
     
-    console.log(GameData);
-    // createCanvas(GameData.CanvasSize[0].GameData.CanvasSize[1]);
-    background("#222");
-    noLoop();
+    // });
+    
+    setTimeout(() => {
+        console.log(GameData);
+        createCanvas(GameData.CanvasSize.x, GameData.CanvasSize.y);
+        background("#222");
+        noLoop();
+    }, 500)
+    
 }
 
-function draw(){
-
-}
+// socket.on("data", game.Draw);
 
 
